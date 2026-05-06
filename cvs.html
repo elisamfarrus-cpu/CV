@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CVs - Currículums</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: #f0f2f5;
+      color: #1a1a2e;
+      min-height: 100vh;
+    }
+
+    header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    header h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    header p {
+      opacity: 0.9;
+      font-size: 1.1rem;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+    }
+
+    .search-bar {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .search-bar input {
+      flex: 1;
+      min-width: 200px;
+      padding: 0.75rem 1rem;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: border-color 0.2s;
+    }
+
+    .search-bar input:focus {
+      outline: none;
+      border-color: #667eea;
+    }
+
+    .search-bar select {
+      padding: 0.75rem 1rem;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 1rem;
+      background: white;
+      cursor: pointer;
+    }
+
+    .cv-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .cv-card {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      transition: transform 0.2s, box-shadow 0.2s;
+      cursor: pointer;
+    }
+
+    .cv-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    }
+
+    .cv-header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .cv-avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: bold;
+      flex-shrink: 0;
+    }
+
+    .cv-name {
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+
+    .cv-title {
+      font-size: 0.9rem;
+      opacity: 0.9;
+      margin-top: 0.25rem;
+    }
+
+    .cv-body {
+      padding: 1.5rem;
+    }
+
+    .cv-section {
+      margin-bottom: 1rem;
+    }
+
+    .cv-section:last-child {
+      margin-bottom: 0;
+    }
+
+    .cv-section h4 {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #667eea;
+      margin-bottom: 0.5rem;
+    }
+
+    .cv-section p {
+      font-size: 0.9rem;
+      color: #555;
+      line-height: 1.5;
+    }
+
+    .cv-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .cv-tag {
+      background: #f0f2f5;
+      color: #555;
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+    }
+
+    .cv-contact {
+      display: flex;
+      gap: 0.75rem;
+      padding-top: 1rem;
+      border-top: 1px solid #f0f2f5;
+    }
+
+    .cv-contact a {
+      color: #667eea;
+      text-decoration: none;
+      font-size: 0.85rem;
+    }
+
+    .cv-contact a:hover {
+      text-decoration: underline;
+    }
+
+    /* Modal */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal {
+      background: white;
+      border-radius: 12px;
+      max-width: 700px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: rgba(255, 255, 255, 0.9);
+      border: none;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      font-size: 1.25rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+    }
+
+    .modal-header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 2rem;
+    }
+
+    .modal-header h2 {
+      font-size: 1.75rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .modal-header p {
+      opacity: 0.9;
+    }
+
+    .modal-body {
+      padding: 2rem;
+    }
+
+    .modal-section {
+      margin-bottom: 1.5rem;
+    }
+
+    .modal-section h3 {
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #667eea;
+      margin-bottom: 0.75rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid #f0f2f5;
+    }
+
+    .modal-section p {
+      color: #555;
+      line-height: 1.6;
+    }
+
+    .modal-section ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .modal-section li {
+      padding: 0.5rem 0;
+      color: #555;
+      border-bottom: 1px solid #f0f2f5;
+    }
+
+    .modal-section li:last-child {
+      border-bottom: none;
+    }
+
+    .modal-section li strong {
+      color: #1a1a2e;
+    }
+
+    .modal-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .modal-tag {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 0.4rem 1rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+    }
+
+    .no-results {
+      text-align: center;
+      padding: 3rem;
+      color: #999;
+      font-size: 1.1rem;
+      grid-column: 1 / -1;
+    }
+
+    @media (max-width: 600px) {
+      .cv-grid {
+        grid-template-columns: 1fr;
+      }
+
+      header h1 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Currículums Vitae</h1>
+    <p>Directorio de profesionales</p>
+  </header>
+
+  <div class="container">
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="Buscar por nombre, título o habilidad...">
+      <select id="filterSelect">
+        <option value="">Todas las categorías</option>
+        <option value="Desarrollo">Desarrollo</option>
+        <option value="Diseño">Diseño</option>
+        <option value="Marketing">Marketing</option>
+        <option value="Datos">Datos</option>
+        <option value="Gestión">Gestión</option>
+      </select>
+    </div>
+
+    <div class="cv-grid" id="cvGrid"></div>
+  </div>
+
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+      <button class="modal-close" id="modalClose">&times;</button>
+      <div class="modal-header" id="modalHeader"></div>
+      <div class="modal-body" id="modalBody"></div>
+    </div>
+  </div>
+
+  <script>
+    const cvs = [
+      {
+        id: 1,
+        name: "Ana García",
+        title: "Desarrolladora Full Stack",
+        category: "Desarrollo",
+        summary: "Desarrolladora con 5 años de experiencia creando aplicaciones web modernas y escalables.",
+        experience: [
+          { role: "Senior Full Stack Developer", company: "TechCorp", period: "2022 - Presente", desc: "Liderazgo técnico de equipo de 4 personas. Migración de arquitectura monolítica a microservicios." },
+          { role: "Frontend Developer", company: "StartupXYZ", period: "2020 - 2022", desc: "Desarrollo de SPA con React y TypeScript. Mejora del 40% en rendimiento." },
+          { role: "Junior Developer", company: "WebAgency", period: "2019 - 2020", desc: "Maquetación responsive y desarrollo de componentes reutilizables." }
+        ],
+        education: "Grado en Ingeniería Informática - Universidad Politécnica (2015-2019)",
+        skills: ["React", "TypeScript", "Node.js", "Python", "PostgreSQL", "Docker", "AWS"],
+        email: "ana.garcia@email.com",
+        phone: "+34 612 345 678",
+        linkedin: "linkedin.com/in/anagarcia"
+      },
+      {
+        id: 2,
+        name: "Carlos López",
+        title: "Diseñador UX/UI",
+        category: "Diseño",
+        summary: "Diseñador centrado en el usuario con pasión por crear experiencias digitales intuitivas.",
+        experience: [
+          { role: "Lead UX Designer", company: "DesignStudio", period: "2021 - Presente", desc: "Diseño de sistemas de diseño completos. Investigación con usuarios y testing A/B." },
+          { role: "UI Designer", company: "AppFactory", period: "2019 - 2021", desc: "Diseño de interfaces para aplicaciones móviles iOS y Android." }
+        ],
+        education: "Máster en Diseño de Interacción - ELISAVA (2017-2018)",
+        skills: ["Figma", "Sketch", "Adobe XD", "Prototyping", "User Research", "Design Systems"],
+        email: "carlos.lopez@email.com",
+        phone: "+34 623 456 789",
+        linkedin: "linkedin.com/in/carloslopez"
+      },
+      {
+        id: 3,
+        name: "María Rodríguez",
+        title: "Data Scientist",
+        category: "Datos",
+        summary: "Científica de datos especializada en machine learning y análisis predictivo.",
+        experience: [
+          { role: "Senior Data Scientist", company: "DataTech", period: "2022 - Presente", desc: "Desarrollo de modelos de ML para predicción de churn. Reducción del 25% en pérdida de clientes." },
+          { role: "Data Analyst", company: "FinanceCorp", period: "2020 - 2022", desc: "Análisis de datos financieros y creación de dashboards ejecutivos." }
+        ],
+        education: "Máster en Ciencia de Datos - UPC (2018-2020)",
+        skills: ["Python", "TensorFlow", "PyTorch", "SQL", "Tableau", "Spark", "R"],
+        email: "maria.rodriguez@email.com",
+        phone: "+34 634 567 890",
+        linkedin: "linkedin.com/in/mariarodriguez"
+      },
+      {
+        id: 4,
+        name: "Pedro Martínez",
+        title: "Marketing Digital",
+        category: "Marketing",
+        summary: "Especialista en marketing digital con enfoque en SEO, SEM y growth hacking.",
+        experience: [
+          { role: "Head of Digital Marketing", company: "GrowthLab", period: "2021 - Presente", desc: "Estrategia digital integral. Aumento del 150% en tráfico orgánico." },
+          { role: "SEO Specialist", company: "MediaAgency", period: "2019 - 2021", desc: "Optimización SEO para portfolio de 30+ clientes." }
+        ],
+        education: "Grado en Marketing - ESADE (2015-2019)",
+        skills: ["SEO", "SEM", "Google Analytics", "Facebook Ads", "Content Marketing", "A/B Testing"],
+        email: "pedro.martinez@email.com",
+        phone: "+34 645 678 901",
+        linkedin: "linkedin.com/in/pedromartinez"
+      },
+      {
+        id: 5,
+        name: "Laura Sánchez",
+        title: "Project Manager",
+        category: "Gestión",
+        summary: "Gestora de proyectos técnicos con certificación PMP y experiencia en metodologías ágiles.",
+        experience: [
+          { role: "Senior Project Manager", company: "ConsultingPro", period: "2020 - Presente", desc: "Gestión de portfolio de 8 proyectos simultáneos. Presupuesto total de 2M€." },
+          { role: "Scrum Master", company: "TechSolutions", period: "2018 - 2020", desc: "Facilitación de equipos Scrum de 6-8 personas." }
+        ],
+        education: "MBA - IE Business School (2016-2018)",
+        skills: ["PMP", "Scrum", "Kanban", "Jira", "Asana", "Risk Management", "Stakeholder Management"],
+        email: "laura.sanchez@email.com",
+        phone: "+34 656 789 012",
+        linkedin: "linkedin.com/in/laurasanchez"
+      },
+      {
+        id: 6,
+        name: "Javier Torres",
+        title: "DevOps Engineer",
+        category: "Desarrollo",
+        summary: "Ingeniero DevOps especializado en infraestructura cloud y automatización de CI/CD.",
+        experience: [
+          { role: "Lead DevOps", company: "CloudFirst", period: "2021 - Presente", desc: "Migración completa a AWS. Implementación de pipelines CI/CD reduciendo deploy time en 80%." },
+          { role: "SysAdmin", company: "DataCenter", period: "2018 - 2021", desc: "Administración de infraestructura on-premise de 200+ servidores." }
+        ],
+        education: "Grado en Ingeniería de Sistemas - UPM (2014-2018)",
+        skills: ["AWS", "Docker", "Kubernetes", "Terraform", "Jenkins", "Ansible", "Linux"],
+        email: "javier.torres@email.com",
+        phone: "+34 667 890 123",
+        linkedin: "linkedin.com/in/javiertorres"
+      }
+    ];
+
+    const cvGrid = document.getElementById('cvGrid');
+    const searchInput = document.getElementById('searchInput');
+    const filterSelect = document.getElementById('filterSelect');
+    const modalOverlay = document.getElementById('modalOverlay');
+    const modalHeader = document.getElementById('modalHeader');
+    const modalBody = document.getElementById('modalBody');
+    const modalClose = document.getElementById('modalClose');
+
+    function getInitials(name) {
+      return name.split(' ').map(n => n[0]).join('');
+    }
+
+    function renderCVs(filteredCVs) {
+      if (filteredCVs.length === 0) {
+        cvGrid.innerHTML = '<div class="no-results">No se encontraron resultados</div>';
+        return;
+      }
+
+      cvGrid.innerHTML = filteredCVs.map(cv => `
+        <div class="cv-card" onclick="openModal(${cv.id})">
+          <div class="cv-header">
+            <div class="cv-avatar">${getInitials(cv.name)}</div>
+            <div>
+              <div class="cv-name">${cv.name}</div>
+              <div class="cv-title">${cv.title}</div>
+            </div>
+          </div>
+          <div class="cv-body">
+            <div class="cv-section">
+              <p>${cv.summary}</p>
+            </div>
+            <div class="cv-section">
+              <h4>Habilidades</h4>
+              <div class="cv-tags">
+                ${cv.skills.slice(0, 4).map(s => `<span class="cv-tag">${s}</span>`).join('')}
+                ${cv.skills.length > 4 ? `<span class="cv-tag">+${cv.skills.length - 4}</span>` : ''}
+              </div>
+            </div>
+            <div class="cv-contact">
+              <a href="mailto:${cv.email}">Email</a>
+              <a href="https://${cv.linkedin}" target="_blank">LinkedIn</a>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function openModal(id) {
+      const cv = cvs.find(c => c.id === id);
+      if (!cv) return;
+
+      modalHeader.innerHTML = `
+        <h2>${cv.name}</h2>
+        <p>${cv.title} | ${cv.category}</p>
+      `;
+
+      modalBody.innerHTML = `
+        <div class="modal-section">
+          <h3>Perfil</h3>
+          <p>${cv.summary}</p>
+        </div>
+        <div class="modal-section">
+          <h3>Experiencia</h3>
+          <ul>
+            ${cv.experience.map(exp => `
+              <li>
+                <strong>${exp.role}</strong> - ${exp.company}<br>
+                <small>${exp.period}</small><br>
+                ${exp.desc}
+              </li>
+            `).join('')}
+          </ul>
+        </div>
+        <div class="modal-section">
+          <h3>Educación</h3>
+          <p>${cv.education}</p>
+        </div>
+        <div class="modal-section">
+          <h4 style="font-size: 1rem; text-transform: uppercase; letter-spacing: 0.05em; color: #667eea; margin-bottom: 0.75rem;">Habilidades</h4>
+          <div class="modal-tags">
+            ${cv.skills.map(s => `<span class="modal-tag">${s}</span>`).join('')}
+          </div>
+        </div>
+        <div class="modal-section">
+          <h3>Contacto</h3>
+          <p>Email: <a href="mailto:${cv.email}">${cv.email}</a></p>
+          <p>Teléfono: ${cv.phone}</p>
+          <p>LinkedIn: <a href="https://${cv.linkedin}" target="_blank">${cv.linkedin}</a></p>
+        </div>
+      `;
+
+      modalOverlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      modalOverlay.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    function filterCVs() {
+      const query = searchInput.value.toLowerCase();
+      const category = filterSelect.value;
+
+      const filtered = cvs.filter(cv => {
+        const matchesSearch = !query ||
+          cv.name.toLowerCase().includes(query) ||
+          cv.title.toLowerCase().includes(query) ||
+          cv.summary.toLowerCase().includes(query) ||
+          cv.skills.some(s => s.toLowerCase().includes(query));
+
+        const matchesCategory = !category || cv.category === category;
+
+        return matchesSearch && matchesCategory;
+      });
+
+      renderCVs(filtered);
+    }
+
+    searchInput.addEventListener('input', filterCVs);
+    filterSelect.addEventListener('change', filterCVs);
+    modalClose.addEventListener('click', closeModal);
+    modalOverlay.addEventListener('click', (e) => {
+      if (e.target === modalOverlay) closeModal();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeModal();
+    });
+
+    renderCVs(cvs);
+  </script>
+</body>
+</html>
