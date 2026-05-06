@@ -12,28 +12,47 @@
     }
 
     body {
-      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-      background: #f0f2f5;
-      color: #1a1a2e;
+      font-family: 'Georgia', 'Times New Roman', serif;
+      background: #0a0a0a;
+      color: #e0e0e0;
       min-height: 100vh;
+      background-image:
+        radial-gradient(ellipse at 20% 50%, rgba(226, 176, 74, 0.03) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 50%, rgba(15, 52, 96, 0.1) 0%, transparent 50%);
     }
 
     header {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-      padding: 2rem 1rem;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      color: #e2b04a;
+      padding: 3rem 1rem;
       text-align: center;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 8px 32px rgba(226, 176, 74, 0.2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 50%, rgba(226, 176, 74, 0.1) 0%, transparent 70%);
     }
 
     header h1 {
-      font-size: 2rem;
+      font-size: 2.8rem;
       margin-bottom: 0.5rem;
+      font-weight: 300;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      text-shadow: 0 0 20px rgba(226, 176, 74, 0.5);
     }
 
     header p {
       opacity: 0.9;
-      font-size: 1.1rem;
+      font-size: 1.2rem;
+      font-weight: 300;
+      letter-spacing: 0.1em;
+      color: #ffffff;
     }
 
     .container {
@@ -53,24 +72,43 @@
       flex: 1;
       min-width: 200px;
       padding: 0.75rem 1rem;
-      border: 2px solid #e0e0e0;
+      border: 1px solid rgba(226, 176, 74, 0.3);
       border-radius: 8px;
       font-size: 1rem;
-      transition: border-color 0.2s;
+      background: #1a1a2e;
+      color: #e0e0e0;
+      transition: border-color 0.3s, box-shadow 0.3s;
     }
 
     .search-bar input:focus {
       outline: none;
-      border-color: #667eea;
+      border-color: #e2b04a;
+      box-shadow: 0 0 15px rgba(226, 176, 74, 0.2);
+    }
+
+    .search-bar input::placeholder {
+      color: #666;
     }
 
     .search-bar select {
       padding: 0.75rem 1rem;
-      border: 2px solid #e0e0e0;
+      border: 1px solid rgba(226, 176, 74, 0.3);
       border-radius: 8px;
       font-size: 1rem;
-      background: white;
+      background: #1a1a2e;
+      color: #e0e0e0;
       cursor: pointer;
+      transition: border-color 0.3s;
+    }
+
+    .search-bar select:focus {
+      outline: none;
+      border-color: #e2b04a;
+    }
+
+    .search-bar select option {
+      background: #1a1a2e;
+      color: #e0e0e0;
     }
 
     .cv-grid {
@@ -80,50 +118,59 @@
     }
 
     .cv-card {
-      background: white;
-      border-radius: 12px;
+      background: linear-gradient(145deg, #1a1a2e 0%, #16213e 100%);
+      border-radius: 16px;
       overflow: hidden;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
       cursor: pointer;
+      border: 1px solid rgba(226, 176, 74, 0.1);
     }
 
     .cv-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 12px 40px rgba(226, 176, 74, 0.15);
+      border-color: rgba(226, 176, 74, 0.4);
     }
 
     .cv-header {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
+      background: linear-gradient(135deg, #1a1a2e 0%, #0f3460 100%);
+      color: #e2b04a;
       padding: 1.5rem;
       display: flex;
       align-items: center;
       gap: 1rem;
+      border-bottom: 1px solid rgba(226, 176, 74, 0.2);
     }
 
     .cv-avatar {
-      width: 60px;
-      height: 60px;
+      width: 65px;
+      height: 65px;
       border-radius: 50%;
-      background: rgba(255, 255, 255, 0.3);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.5rem;
-      font-weight: bold;
+      overflow: hidden;
       flex-shrink: 0;
+      border: 2px solid rgba(226, 176, 74, 0.5);
+      box-shadow: 0 0 15px rgba(226, 176, 74, 0.2);
+    }
+
+    .cv-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
     .cv-name {
-      font-size: 1.25rem;
-      font-weight: 600;
+      font-size: 1.3rem;
+      font-weight: 400;
+      letter-spacing: 0.05em;
     }
 
     .cv-title {
-      font-size: 0.9rem;
-      opacity: 0.9;
+      font-size: 0.85rem;
+      opacity: 0.8;
       margin-top: 0.25rem;
+      color: #ffffff;
+      font-style: italic;
     }
 
     .cv-body {
@@ -139,17 +186,17 @@
     }
 
     .cv-section h4 {
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: #667eea;
+      letter-spacing: 0.1em;
+      color: #e2b04a;
       margin-bottom: 0.5rem;
     }
 
     .cv-section p {
       font-size: 0.9rem;
-      color: #555;
-      line-height: 1.5;
+      color: #b0b0b0;
+      line-height: 1.6;
     }
 
     .cv-tags {
@@ -159,27 +206,30 @@
     }
 
     .cv-tag {
-      background: #f0f2f5;
-      color: #555;
+      background: rgba(226, 176, 74, 0.15);
+      color: #e2b04a;
       padding: 0.25rem 0.75rem;
       border-radius: 20px;
       font-size: 0.8rem;
+      border: 1px solid rgba(226, 176, 74, 0.3);
     }
 
     .cv-contact {
       display: flex;
       gap: 0.75rem;
       padding-top: 1rem;
-      border-top: 1px solid #f0f2f5;
+      border-top: 1px solid rgba(226, 176, 74, 0.2);
     }
 
     .cv-contact a {
-      color: #667eea;
+      color: #e2b04a;
       text-decoration: none;
       font-size: 0.85rem;
+      transition: color 0.2s;
     }
 
     .cv-contact a:hover {
+      color: #ffffff;
       text-decoration: underline;
     }
 
@@ -200,13 +250,15 @@
     }
 
     .modal {
-      background: white;
-      border-radius: 12px;
+      background: linear-gradient(145deg, #1a1a2e 0%, #16213e 100%);
+      border-radius: 16px;
       max-width: 700px;
       width: 100%;
       max-height: 90vh;
       overflow-y: auto;
       position: relative;
+      border: 1px solid rgba(226, 176, 74, 0.3);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
     }
 
     .modal-close {
@@ -227,18 +279,42 @@
     }
 
     .modal-header {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
+      background: linear-gradient(135deg, #1a1a2e 0%, #0f3460 100%);
+      color: #e2b04a;
       padding: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      border-bottom: 1px solid rgba(226, 176, 74, 0.2);
+    }
+
+    .modal-header-img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 3px solid rgba(226, 176, 74, 0.5);
+      flex-shrink: 0;
+      box-shadow: 0 0 20px rgba(226, 176, 74, 0.3);
+    }
+
+    .modal-header-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
     .modal-header h2 {
-      font-size: 1.75rem;
+      font-size: 1.8rem;
       margin-bottom: 0.25rem;
+      font-weight: 300;
+      letter-spacing: 0.08em;
     }
 
     .modal-header p {
       opacity: 0.9;
+      color: #ffffff;
+      font-style: italic;
     }
 
     .modal-body {
@@ -252,15 +328,15 @@
     .modal-section h3 {
       font-size: 1rem;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: #667eea;
+      letter-spacing: 0.1em;
+      color: #e2b04a;
       margin-bottom: 0.75rem;
       padding-bottom: 0.5rem;
-      border-bottom: 2px solid #f0f2f5;
+      border-bottom: 2px solid rgba(226, 176, 74, 0.2);
     }
 
     .modal-section p {
-      color: #555;
+      color: #b0b0b0;
       line-height: 1.6;
     }
 
@@ -271,8 +347,8 @@
 
     .modal-section li {
       padding: 0.5rem 0;
-      color: #555;
-      border-bottom: 1px solid #f0f2f5;
+      color: #b0b0b0;
+      border-bottom: 1px solid rgba(226, 176, 74, 0.15);
     }
 
     .modal-section li:last-child {
@@ -280,7 +356,12 @@
     }
 
     .modal-section li strong {
-      color: #1a1a2e;
+      color: #e2b04a;
+    }
+
+    .modal-section li small {
+      color: #888;
+      font-style: italic;
     }
 
     .modal-tags {
@@ -290,19 +371,21 @@
     }
 
     .modal-tag {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
+      background: linear-gradient(135deg, rgba(226, 176, 74, 0.2) 0%, rgba(226, 176, 74, 0.1) 100%);
+      color: #e2b04a;
       padding: 0.4rem 1rem;
       border-radius: 20px;
       font-size: 0.85rem;
+      border: 1px solid rgba(226, 176, 74, 0.3);
     }
 
     .no-results {
       text-align: center;
       padding: 3rem;
-      color: #999;
+      color: #888;
       font-size: 1.1rem;
       grid-column: 1 / -1;
+      font-style: italic;
     }
 
     @media (max-width: 600px) {
@@ -350,100 +433,105 @@
     const cvs = [
       {
         id: 1,
-        name: "Ana García",
-        title: "Desarrolladora Full Stack",
-        category: "Desarrollo",
-        summary: "Desarrolladora con 5 años de experiencia creando aplicaciones web modernas y escalables.",
+        name: "Sofía Méndez",
+        title: "Ingeniera de Machine Learning",
+        category: "Datos",
+        photo: "https://picsum.photos/seed/sofia/200/200",
+        summary: "Especialista en inteligencia artificial con enfoque en procesamiento de lenguaje natural y visión por computadora.",
         experience: [
-          { role: "Senior Full Stack Developer", company: "TechCorp", period: "2022 - Presente", desc: "Liderazgo técnico de equipo de 4 personas. Migración de arquitectura monolítica a microservicios." },
-          { role: "Frontend Developer", company: "StartupXYZ", period: "2020 - 2022", desc: "Desarrollo de SPA con React y TypeScript. Mejora del 40% en rendimiento." },
-          { role: "Junior Developer", company: "WebAgency", period: "2019 - 2020", desc: "Maquetación responsive y desarrollo de componentes reutilizables." }
+          { role: "ML Engineer", company: "AI Solutions", period: "2023 - Presente", desc: "Desarrollo de modelos de NLP para análisis de sentimientos en tiempo real." },
+          { role: "Data Scientist", company: "NeuralTech", period: "2021 - 2023", desc: "Implementación de redes neuronales convolucionales para clasificación de imágenes médicas." }
         ],
-        education: "Grado en Ingeniería Informática - Universidad Politécnica (2015-2019)",
-        skills: ["React", "TypeScript", "Node.js", "Python", "PostgreSQL", "Docker", "AWS"],
-        email: "ana.garcia@email.com",
-        phone: "+34 612 345 678",
-        linkedin: "linkedin.com/in/anagarcia"
+        education: "Doctorado en Inteligencia Artificial - MIT (2019-2023)",
+        skills: ["Python", "TensorFlow", "PyTorch", "Scikit-learn", "Hugging Face", "CUDA", "MLOps"],
+        email: "sofia.mendez@email.com",
+        phone: "+34 611 222 333",
+        linkedin: "linkedin.com/in/sofiamendez"
       },
       {
         id: 2,
-        name: "Carlos López",
-        title: "Diseñador UX/UI",
-        category: "Diseño",
-        summary: "Diseñador centrado en el usuario con pasión por crear experiencias digitales intuitivas.",
+        name: "Diego Ramírez",
+        title: "Arquitecto de Software",
+        category: "Desarrollo",
+        photo: "https://picsum.photos/seed/diego/200/200",
+        summary: "Arquitecto de sistemas distribuidos con 10 años de experiencia en diseño de microservicios y soluciones cloud-native.",
         experience: [
-          { role: "Lead UX Designer", company: "DesignStudio", period: "2021 - Presente", desc: "Diseño de sistemas de diseño completos. Investigación con usuarios y testing A/B." },
-          { role: "UI Designer", company: "AppFactory", period: "2019 - 2021", desc: "Diseño de interfaces para aplicaciones móviles iOS y Android." }
+          { role: "Software Architect", company: "CloudScale", period: "2022 - Presente", desc: "Diseño de arquitectura para plataforma de pagos procesando 1M+ transacciones diarias." },
+          { role: "Senior Backend Developer", company: "MicroSys", period: "2019 - 2022", desc: "Migración de monolitos a arquitectura de microservicios con gRPC y Kafka." }
         ],
-        education: "Máster en Diseño de Interacción - ELISAVA (2017-2018)",
-        skills: ["Figma", "Sketch", "Adobe XD", "Prototyping", "User Research", "Design Systems"],
-        email: "carlos.lopez@email.com",
-        phone: "+34 623 456 789",
-        linkedin: "linkedin.com/in/carloslopez"
+        education: "Máster en Arquitectura de Software - UPM (2017-2018)",
+        skills: ["Go", "Java", "Kubernetes", "gRPC", "Kafka", "PostgreSQL", "Redis", "Terraform"],
+        email: "diego.ramirez@email.com",
+        phone: "+34 622 333 444",
+        linkedin: "linkedin.com/in/diegoramirez"
       },
       {
         id: 3,
-        name: "María Rodríguez",
-        title: "Data Scientist",
-        category: "Datos",
-        summary: "Científica de datos especializada en machine learning y análisis predictivo.",
+        name: "Elena Vargas",
+        title: "Product Designer",
+        category: "Diseño",
+        photo: "https://picsum.photos/seed/elena/200/200",
+        summary: "Diseñadora de producto enfocada en crear experiencias accesibles y centradas en el usuario para aplicaciones SaaS.",
         experience: [
-          { role: "Senior Data Scientist", company: "DataTech", period: "2022 - Presente", desc: "Desarrollo de modelos de ML para predicción de churn. Reducción del 25% en pérdida de clientes." },
-          { role: "Data Analyst", company: "FinanceCorp", period: "2020 - 2022", desc: "Análisis de datos financieros y creación de dashboards ejecutivos." }
+          { role: "Senior Product Designer", company: "SaaSify", period: "2021 - Presente", desc: "Rediseño completo de dashboard principal aumentando retención en 35%." },
+          { role: "UX Designer", company: "DesignFirst", period: "2018 - 2021", desc: "Creación de design system utilizado por 50+ diseñadores y desarrolladores." }
         ],
-        education: "Máster en Ciencia de Datos - UPC (2018-2020)",
-        skills: ["Python", "TensorFlow", "PyTorch", "SQL", "Tableau", "Spark", "R"],
-        email: "maria.rodriguez@email.com",
-        phone: "+34 634 567 890",
-        linkedin: "linkedin.com/in/mariarodriguez"
+        education: "Grado en Diseño Gráfico - Universidad de Barcelona (2014-2018)",
+        skills: ["Figma", "Design Systems", "Accessibility", "User Testing", "Prototyping", "HTML/CSS"],
+        email: "elena.vargas@email.com",
+        phone: "+34 633 444 555",
+        linkedin: "linkedin.com/in/elenavargas"
       },
       {
         id: 4,
-        name: "Pedro Martínez",
-        title: "Marketing Digital",
+        name: "Andrés Castro",
+        title: "Growth Marketing Manager",
         category: "Marketing",
-        summary: "Especialista en marketing digital con enfoque en SEO, SEM y growth hacking.",
+        photo: "https://picsum.photos/seed/andres/200/200",
+        summary: "Estratega de crecimiento con experiencia en optimización de funnels y experimentación data-driven.",
         experience: [
-          { role: "Head of Digital Marketing", company: "GrowthLab", period: "2021 - Presente", desc: "Estrategia digital integral. Aumento del 150% en tráfico orgánico." },
-          { role: "SEO Specialist", company: "MediaAgency", period: "2019 - 2021", desc: "Optimización SEO para portfolio de 30+ clientes." }
+          { role: "Head of Growth", company: "ScaleUp Inc", period: "2022 - Presente", desc: "Implementación de estrategia PLG logrando 200% crecimiento en usuarios activos." },
+          { role: "Performance Marketer", company: "AdMasters", period: "2020 - 2022", desc: "Gestión de presupuesto de 500k€ en ads con ROAS promedio de 4.5x." }
         ],
-        education: "Grado en Marketing - ESADE (2015-2019)",
-        skills: ["SEO", "SEM", "Google Analytics", "Facebook Ads", "Content Marketing", "A/B Testing"],
-        email: "pedro.martinez@email.com",
-        phone: "+34 645 678 901",
-        linkedin: "linkedin.com/in/pedromartinez"
+        education: "Grado en Administración de Empresas - ESADE (2016-2020)",
+        skills: ["Growth Hacking", "SEO/SEM", "Analytics", "CRO", "Email Marketing", "SQL", "HubSpot"],
+        email: "andres.castro@email.com",
+        phone: "+34 644 555 666",
+        linkedin: "linkedin.com/in/andrescastro"
       },
       {
         id: 5,
-        name: "Laura Sánchez",
-        title: "Project Manager",
+        name: "Carmen Ortiz",
+        title: "Agile Coach",
         category: "Gestión",
-        summary: "Gestora de proyectos técnicos con certificación PMP y experiencia en metodologías ágiles.",
+        photo: "https://picsum.photos/seed/carmen/200/200",
+        summary: "Coach ágil certificada ayudando a organizaciones en su transformación hacia metodologías ágiles y cultura DevOps.",
         experience: [
-          { role: "Senior Project Manager", company: "ConsultingPro", period: "2020 - Presente", desc: "Gestión de portfolio de 8 proyectos simultáneos. Presupuesto total de 2M€." },
-          { role: "Scrum Master", company: "TechSolutions", period: "2018 - 2020", desc: "Facilitación de equipos Scrum de 6-8 personas." }
+          { role: "Enterprise Agile Coach", company: "TransformAgile", period: "2021 - Presente", desc: "Transformación ágil de 300+ personas en 5 departamentos diferentes." },
+          { role: "Scrum Master", company: "DevSolutions", period: "2018 - 2021", desc: "Facilitación de 3 equipos Scrum logrando aumento de velocidad del 60%." }
         ],
-        education: "MBA - IE Business School (2016-2018)",
-        skills: ["PMP", "Scrum", "Kanban", "Jira", "Asana", "Risk Management", "Stakeholder Management"],
-        email: "laura.sanchez@email.com",
-        phone: "+34 656 789 012",
-        linkedin: "linkedin.com/in/laurasanchez"
+        education: "Máster en Gestión de Proyectos - IE Business School (2017-2018)",
+        skills: ["SAFe", "Scrum", "Kanban", "OKRs", "Change Management", "Jira", "Confluence"],
+        email: "carmen.ortiz@email.com",
+        phone: "+34 655 666 777",
+        linkedin: "linkedin.com/in/carmenortiz"
       },
       {
         id: 6,
-        name: "Javier Torres",
-        title: "DevOps Engineer",
+        name: "Roberto Silva",
+        title: "Cybersecurity Engineer",
         category: "Desarrollo",
-        summary: "Ingeniero DevOps especializado en infraestructura cloud y automatización de CI/CD.",
+        photo: "https://picsum.photos/seed/roberto/200/200",
+        summary: "Ingeniero de ciberseguridad especializado en pentesting, análisis de vulnerabilidades y arquitecturas zero-trust.",
         experience: [
-          { role: "Lead DevOps", company: "CloudFirst", period: "2021 - Presente", desc: "Migración completa a AWS. Implementación de pipelines CI/CD reduciendo deploy time en 80%." },
-          { role: "SysAdmin", company: "DataCenter", period: "2018 - 2021", desc: "Administración de infraestructura on-premise de 200+ servidores." }
+          { role: "Senior Security Engineer", company: "SecureNet", period: "2022 - Presente", desc: "Implementación de arquitectura zero-trust reduciendo incidentes en 70%." },
+          { role: "Penetration Tester", company: "HackLabs", period: "2019 - 2022", desc: "Realización de 100+ auditorías de seguridad para bancos y fintechs." }
         ],
-        education: "Grado en Ingeniería de Sistemas - UPM (2014-2018)",
-        skills: ["AWS", "Docker", "Kubernetes", "Terraform", "Jenkins", "Ansible", "Linux"],
-        email: "javier.torres@email.com",
-        phone: "+34 667 890 123",
-        linkedin: "linkedin.com/in/javiertorres"
+        education: "Grado en Ingeniería de Ciberseguridad - UOC (2015-2019)",
+        skills: ["Penetration Testing", "OWASP", "Python", "Burp Suite", "Nmap", "SIEM", "ISO 27001"],
+        email: "roberto.silva@email.com",
+        phone: "+34 666 777 888",
+        linkedin: "linkedin.com/in/robertosilva"
       }
     ];
 
@@ -455,10 +543,6 @@
     const modalBody = document.getElementById('modalBody');
     const modalClose = document.getElementById('modalClose');
 
-    function getInitials(name) {
-      return name.split(' ').map(n => n[0]).join('');
-    }
-
     function renderCVs(filteredCVs) {
       if (filteredCVs.length === 0) {
         cvGrid.innerHTML = '<div class="no-results">No se encontraron resultados</div>';
@@ -468,7 +552,9 @@
       cvGrid.innerHTML = filteredCVs.map(cv => `
         <div class="cv-card" onclick="openModal(${cv.id})">
           <div class="cv-header">
-            <div class="cv-avatar">${getInitials(cv.name)}</div>
+            <div class="cv-avatar">
+              <img src="${cv.photo}" alt="${cv.name}">
+            </div>
             <div>
               <div class="cv-name">${cv.name}</div>
               <div class="cv-title">${cv.title}</div>
@@ -499,8 +585,13 @@
       if (!cv) return;
 
       modalHeader.innerHTML = `
-        <h2>${cv.name}</h2>
-        <p>${cv.title} | ${cv.category}</p>
+        <div class="modal-header-img">
+          <img src="${cv.photo}" alt="${cv.name}">
+        </div>
+        <div>
+          <h2>${cv.name}</h2>
+          <p>${cv.title} | ${cv.category}</p>
+        </div>
       `;
 
       modalBody.innerHTML = `
